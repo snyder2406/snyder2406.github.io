@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Research — Shelby Snyder</title>
+<meta name="description" content="Shelby Snyder's research — Zero Trust Container Architecture (ZTCA) for DoW cloud-native compliance, and embedded systems security research with AFRL." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="status-strip">
+    <div class="wrap">
+      <span class="dot">●</span>
+      <span>STATUS// Boston, MA · Northeastern '28 · Open to Fall 2027 co-ops</span>
+    </div>
+  </div>
+  <nav class="wrap">
+    <a class="logo" href="index.html">S. SNYDER</a>
+    <ul class="nav-links">
+      <li><a href="index.html#focus">Focus</a></li>
+      <li><a href="research.html" class="active">Research</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero compact" id="top">
+    <div class="wrap">
+      <div class="eyebrow">Research</div>
+      <h1 class="smaller">What I've been digging into</h1>
+      <p class="bio" style="margin-bottom: 0;">
+        Most of my research sits at the intersection of federal compliance frameworks and the
+        systems those frameworks weren't originally written for — cloud-native infrastructure,
+        and embedded systems that don't look like a typical Unix box.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ ZTCA — FLAGSHIP RESEARCH ============ -->
+  <section id="ztca">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Zero Trust Container Architecture (ZTCA)</h2>
+        <span class="section-note">MCPA · In Review · 2026</span>
+      </div>
+
+      <p class="bio" style="max-width: 720px; margin-bottom: 28px;">
+        <strong style="color: var(--text);">From Framework to Toolchain: Implementing Zero Trust
+        Architecture in Cloud-Native Environments for DoW Compliance.</strong> Manuscript in
+        review with the Military Cyber Professionals Association. Presented at the 2026 VICEROY
+        Symposium, where it placed 1st in the student poster competition, judged by Department of
+        War leadership and senior government officials.
+      </p>
+
+      <div class="entry-item" style="grid-template-columns: 140px 1fr;">
+        <div class="entry-meta">THE<br/>PROBLEM</div>
+        <div class="entry-body">
+          <h3>NIST left the toolchain unspecified</h3>
+          <p>NIST SP 800-207A defines a multi-tier Zero Trust policy model for cloud-native
+          environments, but it's deliberately architecture-neutral — it never says which
+          concrete Kubernetes tools should fill each role. That gap leaves practitioners
+          guessing at implementation, and most existing Zero Trust research focuses on proposed
+          architectures rather than validated deployments.</p>
+        </div>
+      </div>
+
+      <div class="entry-item" style="grid-template-columns: 140px 1fr;">
+        <div class="entry-meta">THE<br/>FRAMEWORK</div>
+        <div class="entry-body">
+          <h3>Mapping NIST's model onto real tools, across three tiers</h3>
+          <p>ZTCA maps NIST's three logical components — Policy Engine, Policy Administrator,
+          Policy Enforcement Point — onto a concrete Kubernetes toolchain at three enforcement
+          tiers:</p>
+          <ul>
+            <li><strong>Tier 1 — Service mesh (L7 identity):</strong> Istio/Linkerd, SPIFFE/SPIRE
+            workload identity, and Open Policy Agent enforcing per-request, identity-based
+            authorization instead of per-session.</li>
+            <li><strong>Tier 2 — Microsegmentation (L3/L4 network):</strong> Kubernetes
+            NetworkPolicy enforced via Cilium or Calico, providing a defense-in-depth backup
+            layer using eBPF.</li>
+            <li><strong>Tier 3 — Perimeter:</strong> traditional firewalls, load balancers, and
+            API gateways handling north-south traffic at the cluster boundary.</li>
+          </ul>
+          <p>The key architectural shift: replacing IP-based policy with cryptographic SPIFFE
+          workload identity as the <em>primary</em> trust anchor, since IP addresses are
+          meaningless for ephemeral, dynamically-addressed containers.</p>
+        </div>
+      </div>
+
+      <div class="entry-item" style="grid-template-columns: 140px 1fr;">
+        <div class="entry-meta">VENDOR<br/>ANALYSIS</div>
+        <div class="entry-body">
+          <h3>No single vendor covers all three tiers</h3>
+          <p>A structured comparison of six major Zero Trust vendors — Microsoft, Google
+          BeyondCorp, Zscaler, Okta, Illumio, and HashiCorp — against NIST component alignment,
+          Kubernetes-native capability, FedRAMP authorization posture, and empirical ROI. The
+          finding: DoW deployments need a layered, multi-vendor approach, since no existing
+          product fully instantiates the ZTCA model on its own.</p>
+        </div>
+      </div>
+
+      <div class="entry-item" style="grid-template-columns: 140px 1fr;">
+        <div class="entry-meta">FEDERAL<br/>CONTEXT</div>
+        <div class="entry-body">
+          <h3>Why this matters for DoW timelines</h3>
+          <p>The Department of War has set a target of enterprise-wide Zero Trust deployment by
+          FY2027. Federal progress data shows real movement — hardware asset coverage improving
+          from 33% to 55%, software from 18% to 39% since the FY2022 baseline — but 61% of
+          agencies remain below 90% software coverage. That gap between mandate and toolchain-
+          level guidance is exactly what this research targets.</p>
+        </div>
+      </div>
+
+      <div class="entry-item" style="grid-template-columns: 140px 1fr;">
+        <div class="entry-meta">WHAT'S<br/>NEXT</div>
+        <div class="entry-body">
+          <h3>Stage 2: empirical validation</h3>
+          <p>This is Stage 1 — an applied analysis and framework. A planned Stage 2 pilot will
+          deploy the proposed toolchain in a controlled lab environment to empirically test
+          whether the three-tier mapping holds up, whether audit coverage spans all three tiers,
+          and whether the recommended multi-vendor stack actually interoperates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GOVERNMENT EMBEDDED SYSTEMS RESEARCH — GENERAL ============ -->
+  <section id="boltos">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Embedded Systems Compliance Research</h2>
+        <span class="section-note">AFRL / Griffiss Institute · VICEROY MAVEN · 2026</span>
+      </div>
+
+      <p class="bio" style="max-width: 720px; margin-bottom: 20px;">
+        As part of a 7-person, 5-university research team at the Air Force Research Laboratory's
+        Griffiss Institute, I co-developed the first government-initiated Security Technical
+        Implementation Guide (STIG) for a custom embedded military operating system —
+        a purpose-built system that doesn't expose the standard Unix primitives (shell, SSH,
+        writable filesystem) that most federal compliance frameworks assume exist.
+      </p>
+      <p class="bio" style="max-width: 720px; margin-bottom: 20px;">
+        The work involved analyzing NIST SP 800-53 Rev. 5 controls and CIS Benchmark
+        configurations, identifying which control <em>intent</em> could still be satisfied
+        through the system's alternative management interface, and authoring 26 XCCDF rules
+        across six control families — reflecting how the compliance boundary shifts when a
+        system's architecture doesn't match conventional assumptions.
+      </p>
+      <p class="bio" style="max-width: 720px; margin-bottom: 0; color: var(--text-faint); font-size: 0.88rem;">
+        Because this system and its documentation are government-sensitive and not yet publicly
+        releasable, I'm keeping the details general here. I'm glad to speak to the work,
+        methodology, and my specific contributions in more depth in conversation.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-row">
+      <div>
+        <h2>Let's talk.</h2>
+        <p style="color: var(--text-dim);">Open to fall 2027 internships and co-ops.</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:shelbychsnyder@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/shelbycsnyder" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/snyder2406" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Shelby Snyder · Boston, MA</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
