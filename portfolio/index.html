@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shelby Snyder — Cybersecurity</title>
+<meta name="description" content="Shelby Snyder — cybersecurity undergraduate researcher focused on embedded systems security, compliance frameworks, and Zero Trust architecture." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14171B;
+    --bg-panel: #1C2025;
+    --bg-panel-2: #21262C;
+    --text: #ECE9E2;
+    --text-dim: #9AA1AA;
+    --text-faint: #6B7280;
+    --amber: #E8A33D;
+    --blue: #6FA8C4;
+    --line: rgba(236, 233, 226, 0.12);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(20, 23, 27, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  nav.wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .logo {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    transition: color 0.15s ease;
+  }
+
+  .nav-links a:hover { color: var(--amber); }
+
+  /* ---------- STATUS STRIP ---------- */
+  .status-strip {
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    letter-spacing: 0.02em;
+  }
+
+  .status-strip .wrap {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .status-strip .dot {
+    color: var(--amber);
+    animation: blink 2.4s step-start infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-strip .dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  @keyframes blink {
+    50% { opacity: 0.25; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 96px 0 80px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--blue);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  .thesis {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    color: var(--text);
+    font-weight: 400;
+    max-width: 640px;
+    margin-bottom: 24px;
+  }
+
+  .thesis strong {
+    color: var(--amber);
+    font-weight: 500;
+  }
+
+  .bio {
+    max-width: 620px;
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin-bottom: 36px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    padding: 12px 22px;
+    border-radius: 3px;
+    transition: all 0.15s ease;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--amber);
+    color: #14171B;
+    font-weight: 600;
+  }
+
+  .btn-primary:hover { background: #f0b558; }
+
+  .btn-secondary {
+    border: 1px solid var(--line);
+    color: var(--text);
+  }
+
+  .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+
+  .tag-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: var(--text-faint);
+    border: 1px solid var(--line);
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    margin-bottom: 44px;
+  }
+
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+  }
+
+  /* ---------- FOCUS GRID ---------- */
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .focus-card {
+    background: var(--bg-panel);
+    padding: 32px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .focus-card.visible { opacity: 1; transform: translateY(0); }
+
+  .focus-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .focus-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .focus-card p {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+  }
+
+  /* ---------- RESEARCH ---------- */
+  .research-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 28px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .research-item.visible { opacity: 1; transform: translateY(0); }
+
+  .research-item:first-of-type { border-top: none; }
+
+  .research-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    letter-spacing: 0.03em;
+    padding-top: 4px;
+  }
+
+  .research-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .research-body p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    max-width: 640px;
+    margin-bottom: 14px;
+  }
+
+  .research-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--blue);
+    border-bottom: 1px solid transparent;
+  }
+
+  .research-link:hover { border-bottom-color: var(--blue); }
+
+  /* ---------- RECOGNITION STRIP ---------- */
+  .recognition {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .rec-item {
+    border-left: 2px solid var(--amber);
+    padding-left: 16px;
+  }
+
+  .rec-item .num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .rec-item p {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 48px 0 64px;
+  }
+
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  footer h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .footer-links a { color: var(--text-dim); }
+  .footer-links a:hover { color: var(--amber); }
+
+  .footer-note {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    margin-top: 40px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 720px) {
+    .focus-grid { grid-template-columns: 1fr; }
+    .recognition { grid-template-columns: repeat(2, 1fr); }
+    .research-item { grid-template-columns: 1fr; gap: 8px; }
+    nav.wrap { justify-content: center; text-align: center; }
+    .footer-row { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 480px) {
+    .recognition { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="status-strip">
+    <div class="wrap">
+      <span class="dot">●</span>
+      <span>STATUS// Boston, MA · Northeastern '28 · Open to Summer/Fall 2027 co-ops</span>
+    </div>
+  </div>
+  <nav class="wrap">
+    <a class="logo" href="#top">S. SNYDER</a>
+    <ul class="nav-links">
+      <li><a href="#focus">Focus</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="eyebrow">B.S. Cybersecurity · Northeastern University</div>
+      <h1>Shelby Snyder</h1>
+      <p class="thesis">I harden systems that <strong>don't come with a rulebook yet.</strong></p>
+      <p class="bio">
+        I'm an undergraduate researcher working at the intersection of embedded systems security
+        and federal compliance — most recently co-authoring the first government-initiated STIG
+        for a custom military operating system with no shell, no SSH, and no existing baseline to
+        build from. I'm still early in this field, but the work I've shipped is real: published
+        research, a government-facing compliance artifact, and a first-place research presentation
+        to Department of War leadership. I'm looking for the next place to put that to work.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#research">View research</a>
+        <a class="btn btn-secondary" href="resume.html">Resume</a>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Embedded Systems</span>
+        <span class="tag">Zero Trust</span>
+        <span class="tag">RMF / STIG</span>
+        <span class="tag">Reverse Engineering</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="focus">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What I focus on</h2>
+      </div>
+      <div class="focus-grid">
+        <div class="focus-card">
+          <span class="focus-tag">OS / EMBEDDED</span>
+          <h3>Embedded &amp; OT Security</h3>
+          <p>Analyzing purpose-built, resource-constrained operating systems that don't expose
+          the standard Unix primitives most security tooling assumes exist.</p>
+        </div>
+        <div class="focus-card">
+          <span class="focus-tag">COMPLIANCE</span>
+          <h3>RMF &amp; STIG Authoring</h3>
+          <p>Mapping NIST SP 800-53 controls to real, checkable rules — XCCDF authoring,
+          CCI tracing, and building the pipelines that validate them.</p>
+        </div>
+        <div class="focus-card">
+          <span class="focus-tag">CLOUD / ZT</span>
+          <h3>Zero Trust Architecture</h3>
+          <p>Translating NIST SP 800-207 / 800-207A into concrete Kubernetes-native
+          toolchains — service mesh, workload identity, and network policy.</p>
+        </div>
+        <div class="focus-card">
+          <span class="focus-tag">OFFENSIVE</span>
+          <h3>Reverse Engineering &amp; CTF</h3>
+          <p>Binary analysis and competitive security work — Ghidra, Binwalk, and
+          placing in national-level cyber competitions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Research</h2>
+      </div>
+
+      <div class="research-item">
+        <div class="research-meta">IEEE<br/>IN PREP<br/>2026</div>
+        <div class="research-body">
+          <h3>There Are No Rules: Hardening a Custom Embedded Military OS Without a Compliance Baseline</h3>
+          <p>Co-authored the first government-initiated STIG for BoltOS, a custom embedded
+          military operating system with no shell, console, or SSH endpoint. Mapped NIST SP
+          800-53 Rev. 5 and CIS Ubuntu 24.04 controls to 26 XCCDF rules, validated in STIG
+          Viewer 3.7. Work completed with AFRL / Griffiss Institute, VICEROY MAVEN.</p>
+          <a class="research-link" href="#">Read the paper →</a>
+        </div>
+      </div>
+
+      <div class="research-item">
+        <div class="research-meta">MCPA<br/>IN REVIEW<br/>2026</div>
+        <div class="research-body">
+          <h3>From Framework to Toolchain: Implementing Zero Trust Architecture in Cloud-Native Environments for DoW Compliance</h3>
+          <p>Mapped NIST SP 800-207A's Policy Engine / Policy Administrator / Policy Enforcement
+          Point model to a Kubernetes-native toolchain (the ZTCA framework), plus a structured
+          comparison of six Zero Trust vendors against DoW compliance requirements. Presented
+          at the VICEROY Symposium — 1st place, student poster competition.</p>
+          <a class="research-link" href="#">Read the paper →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="recognition">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Recognition</h2>
+      </div>
+      <div class="recognition">
+        <div class="rec-item">
+          <span class="num">2026</span>
+          <p>1st Place, VICEROY Symposium Student Poster Competition — 36 competing students, presented to DoW leadership</p>
+        </div>
+        <div class="rec-item">
+          <span class="num">2026</span>
+          <p>Air Force Research Laboratory Intern, Griffiss Institute — VICEROY MAVEN</p>
+        </div>
+        <div class="rec-item">
+          <span class="num">CERT</span>
+          <p>CompTIA Security+</p>
+        </div>
+        <div class="rec-item">
+          <span class="num">RANK</span>
+          <p>Top 50 of 454 teams, National Cyber League Fall 2025</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-row">
+      <div>
+        <h2>Let's talk.</h2>
+        <p style="color: var(--text-dim);">Open to summer/fall 2027 internships and co-ops.</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:shelbychsnyder@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/shelbycsnyder" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Shelby Snyder · Boston, MA</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal for focus cards and research items
+  const revealEls = document.querySelectorAll('.focus-card, .research-item');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    revealEls.forEach(el => el.classList.add('visible'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealEls.forEach(el => observer.observe(el));
+  }
+</script>
+
+</body>
+</html>
